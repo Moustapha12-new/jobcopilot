@@ -22,7 +22,7 @@ services:
   - type: cron
     name: jobcopilot-scanner
     runtime: python
-    plan: free
+  
     buildCommand: "pip install -r requirements.txt"
     schedule: "0 */2 * * *"  # Toutes les 2 heures
     startCommand: "python main.py --scan-only"
