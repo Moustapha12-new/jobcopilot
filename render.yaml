@@ -1,7 +1,4 @@
-# render.yaml — Blueprint JobCopilot pour Render.com
-# Déploie avec : New Blueprint → Upload render.yaml
 services:
-  # ── Service Web : Dashboard + API Flask ──
   - type: web
     name: jobcopilot-web
     runtime: python
@@ -10,24 +7,10 @@ services:
     startCommand: "gunicorn -w 2 -b 0.0.0.0:$PORT server:app"
     envVars:
       - key: GEMINI_API_KEY
-        sync: false  # Tu la configures dans le dashboard Render
+        sync: false
       - key: PYTHON_VERSION
         value: 3.11.0
       - key: FLASK_ENV
         value: production
     healthCheckPath: /api/stats
     autoDeploy: true
-
-  # ── Service Cron : Scan périodique toutes les 2h ──
-  - type: cron
-    name: jobcopilot-scanner
-    runtime: python
-  
-    buildCommand: "pip install -r requirements.txt"
-    schedule: "0 */2 * * *"  # Toutes les 2 heures
-    startCommand: "python main.py --scan-only"
-    envVars:
-      - key: GEMINI_API_KEY
-        sync: false
-      - key: PYTHON_VERSION
-        value: 3.11.0
