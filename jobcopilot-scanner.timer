@@ -1,0 +1,29 @@
+# /etc/systemd/system/jobcopilot-scanner.service
+[Unit]
+Description=JobCopilot Scanner
+After=network.target
+
+[Service]
+Type=oneshot
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/jobcopilot
+Environment=GEMINI_API_KEY=TA_CLE_API_ICI
+ExecStart=/opt/jobcopilot/venv/bin/python main.py --scan-only
+
+# /etc/systemd/system/jobcopilot-scanner.timer
+[Unit]
+Description=Run JobCopilot scanner every 2 hours
+
+[Timer]
+OnCalendar=*:0/2
+Persistent=true
+
+[Install]
+WantedBy=timers.target
+
+# Activation :
+# sudo systemctl daemon-reload
+# sudo systemctl enable jobcopilot-scanner.timer
+# sudo systemctl start jobcopilot-scanner.timer
+# sudo systemctl list-timers --all

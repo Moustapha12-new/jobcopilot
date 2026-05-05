@@ -1,0 +1,91 @@
+# ============================================================
+# PROFIL JOBCOPILOT ÉTUDIANT ISE
+# Modifie ce fichier avec tes informations personnelles
+# ============================================================
+
+# --- TON IDENTITÉ ---
+nom: "Moustapha IBRAHIM DJAMA"
+email: "moustaphaibrahim206@gmail.com"
+telephone: "+33 7 45 31 88 16"
+adresse: "Pontoise, Île-de-France"
+linkedin: "linkedin.com/in/moustapha
+ibrahim"
+
+# --- TON NIVEAU ---
+niveau_etude: "2eme annee de cycle ingénieur (BAC+4)"
+ecole: "ECAM-EPMI"
+domaines: ["Ingénierie des systèmes électriques", "énergie", "génie électrique", "électronique de puissance", "automatique ","informatique industrielle","Gestion de projets techniques","qualité industrielle","transformation digitale de l’entreprise"]
+langues: ["français", "anglais","Arabe"]
+
+# --- PROFIL 1 : JOB ÉTUDIANT TERRAIN ---
+profil_terrain:
+  actif: true
+  titres_cibles: ["employé polyvalent", "vendeur", "caissier", "livreur", "agent d'accueil", "serveur", "animateur","préparateur de commande"]
+  lieux_acceptes: ["Paris", "Île-de-France", "Saint-Germain-en-Laye", "Versailles","Osny", "Pontoise", "Cergy"]
+  teletravail: false
+  salaire_min_horaire: 11.65   # SMIC 2024
+  heures_par_semaine_max: 20
+  disponibilites: ["week-end", "soirée", "vacances scolaires","Dans la semaine"]
+  contrat: ["CDI étudiant", "CDD", "temps partiel"]
+  secteurs: ["restauration", "logistique", "grande distribution", "événementiel", "commerce de proximité"]
+
+# --- PROFIL 2 : JOB ÉTUDIANT TÉLÉTRAVAIL ---
+profil_remote:
+  actif: true
+  titres_cibles: ["rédacteur web", "assistant virtuel", "modérateur", "tuteur en ligne", "community manager", "support client", "data entry", "transcription"]
+  lieux_acceptes: ["France", "remote", "télétravail"]
+  teletravail: true
+  salaire_min_mensuel: 350
+  heures_par_semaine_max: 15
+  disponibilites: ["flexible"]
+  contrat: ["freelance", "CDD", "CDI étudiant", "auto-entrepreneur"]
+  plateformes: ["Malt", "Freelancer", "Upwork", "Fiverr"]
+
+# --- PROFIL 3 : ALTERNANCE ISE / ÉNERGIE ---
+profil_alternance:
+  actif: true
+  titres_cibles: ["alternant ingénieur systèmes électriques","apprenti ingénieur énergie","alternant ingénieur études réseaux électriques","alternant ingénieur R&D","alternance ISE","alternance systèmes électriques","alternant ingénieur data/énergie"]
+  lieux_acceptes: ["Paris", "Île-de-France", "France entière"]
+  teletravail: true   # partiel ok
+  salaire_min_mensuel: 900
+  secteurs: ["énergie", "électricité", "renouvelables", "réseaux électriques", "R&D", "data", "ingénierie","transport ferroviaire", "industrie"]
+  entreprises_cibles: ["EDF", "Enedis", "RTE", "Engie", "TotalEnergies", "Schneider Electric", "Alstom", "Siemens Energy","Vinci Energies", "Eiffage Énergie", "SPIE"]
+  contrat: ["apprentissage", "professionnalisation"]
+  duree_mois: [12, 24]
+
+# --- CRITÈRES GLOBAUX DE SCORING ---
+scoring:
+  poids_competences: 35      # % de la note finale
+  poids_lieu: 15
+  poids_horaires: 15
+  poids_salaire: 15
+  poids_interet: 20
+  seuil_postuler: 7.0         # note /10 minimum pour postuler automatiquement
+  seuil_peut_etre: 5.0        # entre 5 et 7 = à revoir manuellement
+  max_candidatures_par_jour: 20
+
+# --- SOURCES ACTIVES ---
+sources:
+  studentjob: true
+  jooble: true
+  hellowork: true
+  jobaviz: true
+  unjeuneunesolution: true
+  france_travail: true
+  meteojob: true
+  edf_carrieres: true
+  engie_carrieres: true
+  enedis_carrieres: true
+  rte_carrieres: true
+  indeed:
+    actif: true
+    mode: "alertes_mail"
+  linkedin:
+    actif: true
+    mode: "alertes_mail"
+  jobteaser:
+    actif: true
+    mode: "alertes_mail"
+  schneider_carrieres:
+    actif: true
+    mode: "alertes_mail"

@@ -1,0 +1,24 @@
+# /etc/systemd/system/jobcopilot.service
+# Installation : sudo cp jobcopilot.service /etc/systemd/system/
+#              sudo systemctl daemon-reload
+#              sudo systemctl enable jobcopilot
+#              sudo systemctl start jobcopilot
+
+[Unit]
+Description=JobCopilot Web Server
+After=network.target
+
+[Service]
+Type=simple
+User=www-data
+Group=www-data
+WorkingDirectory=/opt/jobcopilot
+Environment=GEMINI_API_KEY=TA_CLE_API_ICI
+Environment=FLASK_ENV=production
+Environment=PYTHONUNBUFFERED=1
+ExecStart=/opt/jobcopilot/venv/bin/gunicorn -w 2 -b 0.0.0.0:5000 server:app
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

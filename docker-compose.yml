@@ -1,0 +1,36 @@
+# docker-compose.yml — JobCopilot sur ton VPS
+version: '3.8'
+
+services:
+  web:
+    build: .
+    container_name: jobcopilot-web
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./profiles:/app/profiles
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+      - FLASK_ENV=production
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5000/api/stats"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  scanner:
+    build: .
+    container_name: jobcopilot-scanner
+    command: python main.py --daemon
+    volumes:
+      - ./data:/app/data
+      - ./logs:/app/logs
+      - ./profiles:/app/profiles
+    environment:
+      - GEMINI_API_KEY=${GEMINI_API_KEY}
+    restart: unless-stopped
+    depends_on:
+      - web
