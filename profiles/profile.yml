@@ -73,10 +73,10 @@ sources:
   unjeuneunesolution: true
   france_travail: true
   meteojob: true
-  edf_carrieres: true
-  engie_carrieres: true
-  enedis_carrieres: true
-  rte_carrieres: true
+  edf_carrieres: false
+  engie_carrieres: false 
+  enedis_carrieres: false
+  rte_carrieres: false
   indeed:
     actif: true
     mode: "alertes_mail"
