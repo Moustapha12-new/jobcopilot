@@ -94,40 +94,42 @@ def scan_studentjob(keywords: list[str], teletravail=False) -> list[dict]:
         cards = soup.select("article.job-card, div.job-card, .vacancy-item, li[data-vacancy-id], .offer-card")
         if not cards:
             # fallback générique
-            cards = soup.select("article, .card, div[class*='job'], div[class*='offer']")
+        # Structure réelle StudentJob: liens dans des éléments <a> avec href contenant /offre/
+                job_links = soup.select('a[href*="/offre/"]')
+        fo        
+        for job_link in job_links[:15]:
+            # Extraire le titre depuis le heading dans le lien
+            titre_el = job_link.select_one('h2, h3, .title')
+            titre = _clean(titre_el.get_text()) if titre_el else _clean(job_link.get_text())
+            
+            if not titre or len(titre) < 5 or 'filtre' in titre.lower():
+                continue      continue
 
-        for card in cards[:12]:
-            titre_el = (card.select_one("h2 a, h3 a, .job-title a, .title a") or 
-                       card.select_one("h2, h3, .job-title, .title"))
-            titre = _clean(titre_el.get_text()) if titre_el else ""
-            if not titre or len(titre) < 3:
-                continue
-
-            lien_el = card.select_one("a[href*='/offre/']") or card.select_one("a[href]")
-            lien = lien_el["href"] if lien_el else ""
+            # Extraire le lien href
+            lien_el = job_link.get('href')
+            lien = lien_el if lien_el and lien_el.startswith('http') else f"https://www.studentjob.fr{lien_el}" if lien_el else ""            lien = lien_el["href"] if lien_el else ""
             if lien and not lien.startswith("http"):
                 lien = "https://www.studentjob.fr" + lien
 
             # Éviter les doublons
+            if lien in seen_links            
+            # Éviter les doublons
             if lien in seen_links:
                 continue
             seen_links.add(lien)
-
-            entreprise_el = card.select_one(".company-name, .employer, .job-company, [class*='company']")
+            
+            # Extraire entreprise, lieu, etc depuis les generics dans le lien
+            entreprise_el = job_link.select_one('.company-name, .employer, .job-company')
             entreprise = _clean(entreprise_el.get_text()) if entreprise_el else "N/A"
 
-            lieu_el = card.select_one(".location, .city, .place, [class*='location']")
+            entreprise_            
+            lieu_el = job_link.select_one('.location, .city, .place, [class*="location"]')
             lieu = _clean(lieu_el.get_text()) if lieu_el else "France"
-
-            type_el = card.select_one(".contract-type, .type, [class*='contract']")
-            contrat = _clean(type_el.get_text()) if type_el else "job étudiant"
-
-            # Filtre télétravail si demandé
-            if teletravail and "remote" not in lieu.lower() and "télétravail" not in lieu.lower():
-                desc = card.get_text().lower()
-                if "remote" not in desc and "télétravail" not in desc and "domicile" not in desc:
-                    continue
-
+            
+            contrat_el = job_link.select_one('.contract-type, .type, [class*="contract"]')
+            contrat = _clean(contrat_el.get_text()) if contrat_el else "job étudiant"
+            
+            # Créer l'offre
             offres.append({
                 "titre": titre,
                 "entreprise": entreprise,
@@ -138,8 +140,7 @@ def scan_studentjob(keywords: list[str], teletravail=False) -> list[dict]:
                 "description": f"Offre StudentJob pour : {kw}. {titre} chez {entreprise}.",
                 "lien": lien,
                 "source": "studentjob",
-            })
-
+            }) lieu    
     logger.info(f"StudentJob: {len(offres)} offres trouvées")
     return offres
 
