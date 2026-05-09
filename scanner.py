@@ -99,12 +99,11 @@ def scan_studentjob(keywords: list[str], teletravail=False) -> list[dict]:
         fo        
         for job_link in job_links[:15]:
             # Extraire le titre depuis le heading dans le lien
-            titre_el = job_link.select_one('h2, h3, .title')
-            titre = _clean(titre_el.get_text()) if titre_el else _clean(job_link.get_text())
+                titre_el = job_link.select_one('h2, h3, h4, [class*="title"], [class*="job-title"]')            titre = _clean(titre_el.get_text()) if titre_el else _clean(job_link.get_text())
+                            titre = _clean(titre_el.get_text(strip=True)) if titre_el else ""
             
             if not titre or len(titre) < 5 or 'filtre' in titre.lower():
-                continue      continue
-
+                    continue
             # Extraire le lien href
             lien_el = job_link.get('href')
             lien = lien_el if lien_el and lien_el.startswith('http') else f"https://www.studentjob.fr{lien_el}" if lien_el else ""            lien = lien_el["href"] if lien_el else ""
