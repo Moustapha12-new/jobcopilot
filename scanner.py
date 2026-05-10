@@ -104,6 +104,7 @@ def scan_studentjob(keywords: list[str], teletravail=False) -> list[dict]:
                             titre = _clean(titre_el.get_text(strip=True)) if titre_el else ""
             
             if not titre or len(titre) < 5 or 'filtre' in titre.lower():
+                
                     continue
             # Extraire le lien href
             lien_el = job_link.get('href')
