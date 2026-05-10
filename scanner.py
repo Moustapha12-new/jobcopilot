@@ -100,6 +100,7 @@ def scan_studentjob(keywords: list[str], teletravail=False) -> list[dict]:
         for job_link in job_links[:15]:
             # Extraire le titre depuis le heading dans le lien
                 titre_el = job_link.select_one('h2, h3, h4, [class*="title"], [class*="job-title"]')            titre = _clean(titre_el.get_text()) if titre_el else _clean(job_link.get_text())
+            
                             titre = _clean(titre_el.get_text(strip=True)) if titre_el else ""
             
             if not titre or len(titre) < 5 or 'filtre' in titre.lower():
